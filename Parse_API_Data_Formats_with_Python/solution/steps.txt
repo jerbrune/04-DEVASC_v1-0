@@ -1,0 +1,172 @@
+**************
+*** Task 1 ***
+**************
+** Step 5 **
+print('DevNet')
+
+** Step 8 **
+pwd
+
+** Step 9 **
+pipenv run python lab01.py
+
+** Step 10 **
+pipenv shell
+exit
+
+** Step 11 **
+{
+    "python.pythonPath": "/home/student/.local/share/virtualenvs/student-32m93jd/bin/activate"
+}
+
+**************
+*** Task 2 ***
+**************
+** Step 3 **
+pipenv install ruamel.yaml 
+
+** Step 4 **
+from ruamel import yaml
+
+** Step 6 **
+with open('user.yaml', 'r') as stream:
+
+** Step 7 **
+user_yaml = yaml.safe_load(stream)
+
+** Step 8 **
+print("Type of user_yaml variable:")
+print(type(user_yaml))
+
+** Step 10 **
+print('Keys in user_yaml:')
+for key in user_yaml:
+    print(key)
+
+** Step 12 **
+user = User()
+
+** Step 13 **
+user.id = user_yaml['id']
+user.first_name = user_yaml['first_name']
+user.last_name = user_yaml['last_name']
+user.birth_date = user_yaml['birth_date']
+user.address = user_yaml['address']
+user.score = user_yaml['score']
+
+** Step 14 **
+print('User object:')
+print(user)
+
+**************
+*** Task 3 ***
+**************
+** Step 1 **
+import json
+
+** Step 2 **
+user_json = json.dumps(user, default = serializeUser)
+
+** Step 6 **
+print('JSON with indents and sorted keys')
+user_json = json.dumps(user, default = serializeUser, indent=4, sort_keys=True)
+print(user_json)
+
+**************
+*** Task 4 ***
+**************
+** Step 2 **
+import xml.etree.ElementTree as ET
+
+** Step 3 **
+tree = ET.parse('user.xml')
+
+** Step 4 **
+root = tree.getroot()
+
+** Step 5 **
+for element in root:
+    print(element.tag)
+
+** Step 7 **
+print('id tag value:')
+print(root.find('id').text)
+
+** Step 9 **
+addresses =  root.findall('address')
+
+** Step 10 **
+print('Addresses:')
+for address in addresses:
+    for i in address:    
+        print(i.tag + ':' + i.text)
+
+** Step 12 **
+print('Print the structure')
+for k in root.iter():
+    print(k.tag + ':' + k.text)
+
+** Step 14 **
+import xml.dom.minidom as MD
+
+** Step 15 **
+dom = MD.parse('user.xml')
+
+** Step 16 **
+print('Tags in the XML:')
+for node in dom.childNodes:
+    printTags(node.childNodes)
+
+** Step 18 **
+print('Accessing element value')
+idElements = dom.getElementsByTagName('id')
+print (idElements)
+
+
+** Step 20 **
+elementId = idElements.item(0)
+
+** Step 21 **
+print(elementId.childNodes)
+
+** Step 23 **
+idValue = elementId.firstChild.data
+
+** Step 24 **
+print(idValue)
+
+** Step 26 **
+print('Addresses:')
+for node in dom.getElementsByTagName('address'):
+    printNodes(node.childNodes)
+
+** Step 28 **
+print('The structure:')
+for node in dom.childNodes:
+    printNodes(node.childNodes)
+
+**************
+*** Task 5 ***
+**************
+** Step 2 **
+itemTree = ET.parse('item.xml')
+
+** Step 3 **
+root = itemTree.getroot()
+
+** Step 4 **
+namespaces = {'a':'https://www.example.com/network', 'b':'https://www.example.com/furniture'}
+
+** Step 5 **
+elementsInNSa = root.findall('a:table', namespaces)
+elementsInNSb = root.findall('b:table', namespaces)
+
+** Step 6 **
+print('Elements in NS a:')
+for e in elementsInNSa:
+    for i in e.iter():    
+        print(i.tag + ':' + i.text)
+
+** Step 8 **
+for element in list(elementsInNSb[0]):
+    print(element.tag + ':' + element.text)
